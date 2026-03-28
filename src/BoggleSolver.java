@@ -10,7 +10,8 @@ public class BoggleSolver {
 
     public BoggleSolver(String[] dictionary) {
         root = new TrieNode();
-        for (String word : dictionary) insert(word);
+        for (String word : dictionary)
+            insert(word);
     }
 
     private void insert(String word) {
@@ -36,9 +37,10 @@ public class BoggleSolver {
         }
         return result;
     }
+
     private void dfs(BoggleBoard board, int row, int col,
-                     TrieNode node, String word,
-                     boolean[][] visited, Set<String> result) {
+            TrieNode node, String word,
+            boolean[][] visited, Set<String> result) {
 
         if (row < 0 || col < 0 || row >= board.rows() || col >= board.cols()) {
             return;
@@ -56,6 +58,13 @@ public class BoggleSolver {
         }
 
         String nextWord = word + letter;
+        if (letter == 'Q') {
+            nextNode = nextNode.children['U' - 'A'];
+            if (nextNode == null) {
+                return;
+            }
+            nextWord += 'U';
+        }
         visited[row][col] = true;
 
         if (nextWord.length() >= 3 && nextNode.isWord) {
@@ -73,5 +82,3 @@ public class BoggleSolver {
         visited[row][col] = false;
     }
 }
-
-
