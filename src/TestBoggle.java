@@ -14,8 +14,11 @@ public class TestBoggle {
         BoggleBoard board = new BoggleBoard(grid);
         BoggleSolver solver = new BoggleSolver(dictionary);
 
+        int score = 0;
         for (String word : solver.getAllValidWords(board)) {
-            System.out.println(word + " -> Score: " + solver.scoreOf(word));
+            System.out.println(word);
+            score += solver.scoreOf(word); // Accumulate each word's score
         }
+        System.out.println("Score = " + score); // Print total score at the end
     }
 }
