@@ -81,4 +81,31 @@ public class BoggleSolver {
 
         visited[row][col] = false;
     }
+
+    public int scoreOf(String word) {
+    if (word == null || word.length() < 3 || !isInDictionary(word)) return 0;
+
+    int len = word.length();
+    if (len <= 4) return 1;
+    if (len == 5) return 2;
+    if (len == 6) return 3;
+    if (len == 7) return 5;
+    return 11;
 }
+
+private boolean isInDictionary(String word) {
+    TrieNode node = root;
+
+    for (char ch : word.toCharArray()) {
+        int idx = ch - 'A';
+        if (node.children[idx] == null) {
+            return false;
+        }
+        node = node.children[idx];
+    }
+
+    return node.isWord;
+}
+}
+
+   
