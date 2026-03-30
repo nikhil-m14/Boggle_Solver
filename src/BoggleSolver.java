@@ -26,7 +26,7 @@ public class BoggleSolver {
         node.isWord = true;
     }
 
-    public Set<String> getAllValidWords(BoggleBoard board) {
+    public Iterable<String> getAllValidWords(BoggleBoard board) {
         Set<String> result = new HashSet<>();
         boolean[][] visited = new boolean[board.rows()][board.cols()];
 
@@ -83,29 +83,32 @@ public class BoggleSolver {
     }
 
     public int scoreOf(String word) {
-    if (word == null || word.length() < 3 || !isInDictionary(word)) return 0;
+        if (word == null || word.length() < 3 || !isInDictionary(word))
+            return 0;
 
-    int len = word.length();
-    if (len <= 4) return 1;
-    if (len == 5) return 2;
-    if (len == 6) return 3;
-    if (len == 7) return 5;
-    return 11;
-}
-
-private boolean isInDictionary(String word) {
-    TrieNode node = root;
-
-    for (char ch : word.toCharArray()) {
-        int idx = ch - 'A';
-        if (node.children[idx] == null) {
-            return false;
-        }
-        node = node.children[idx];
+        int len = word.length();
+        if (len <= 4)
+            return 1;
+        if (len == 5)
+            return 2;
+        if (len == 6)
+            return 3;
+        if (len == 7)
+            return 5;
+        return 11;
     }
 
-    return node.isWord;
-}
-}
+    private boolean isInDictionary(String word) {
+        TrieNode node = root;
 
-   
+        for (char ch : word.toCharArray()) {
+            int idx = ch - 'A';
+            if (node.children[idx] == null) {
+                return false;
+            }
+            node = node.children[idx];
+        }
+
+        return node.isWord;
+    }
+}
